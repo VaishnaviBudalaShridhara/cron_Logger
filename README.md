@@ -136,7 +136,7 @@ You can change the value of the "limit" query parameter to retrieve a different 
 
 **Sample API response with limit=5:**
 <p align="left">
-  <img src="images/output.jpg" alt="Sample output with limit=5" width="750">
+  <img src="images/Output.jpg" alt="Sample output with limit=5" width="750">
 </p>
 
 
