@@ -1,0 +1,34 @@
+# API server that reads and serves timestamps from PVC
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cronlogger-api
+spec:
+  replicas: 1
+  selector:    #Selector to match Pods with this label
+    matchLabels:
+      app: cronlogger-api
+  template:    
+    metadata:
+      labels:   #Label to identify Pods belonging to this deployment
+        app: cronlogger-api
+    spec:
+      volumes:
+        # Mount PVC with timestamps log
+        - name: data  #match the name in volumeMounts
+          persistentVolumeClaim:   #Reference to the PVC defined in pvc.yaml
+            claimName: cronlogger-pvc
+      containers:
+        - name: api
+          image: cronlogger-api:local  # Local dev image
+          imagePullPolicy: IfNotPresent  # Use cached image if available
+          ports:
+            - containerPort: 80
+          env:
+            - name: DATA_FILE
+              value: /data/timestamps.log
+          volumeMounts:
+            # Read-only access to timestamps log
+            - name: data
+              mountPath: /data
+              readOnly: true

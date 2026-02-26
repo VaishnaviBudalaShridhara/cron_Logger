@@ -1,0 +1,12 @@
+# Persistent storage for timestamps log
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cronlogger-pvc
+spec:
+  # Only 1 pod with read and write
+  accessModes:
+    - ReadWriteOnce #volume can be mounted as read-write by a single node
+  resources:
+    requests:
+      storage: 1Gi  # 1 gigabyte storage

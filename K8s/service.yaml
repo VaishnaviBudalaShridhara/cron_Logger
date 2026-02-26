@@ -1,0 +1,15 @@
+# Internal network endpoint for API deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: cronlogger-api
+spec:
+  # Route to pods with this label
+  selector:
+    app: cronlogger-api
+  # Port 80 external to Pod port 80
+  ports:
+    - name: http 
+      port: 80 # external port to access the service
+      targetPort: 80 #internal port in the Pod
+  type: ClusterIP #this is the default type.
